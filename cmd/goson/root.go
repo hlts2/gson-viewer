@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"bytes"
@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	cmdutil "github.com/hlts2/goson/cmd/util"
+	cmdutil "github.com/hlts2/goson/cmd/goson/util"
 	"github.com/spf13/cobra"
 )
 
@@ -60,7 +60,8 @@ func runRootCmd(cmd *cobra.Command, args []string) error {
 
 	switch reflect.TypeOf(jsonObj).String() {
 	case "map[string]interface {}":
-		_, _ = jsonObj.(map[string]interface{})
+		v, _ := jsonObj.(map[string]interface{})
+		fmt.Println(v["array"])
 	case "[]interface {}":
 		_, _ = jsonObj.([]interface{})
 	}
@@ -68,8 +69,8 @@ func runRootCmd(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-//Execute run command
-func Execute() {
+//execute run command
+func execute() {
 	rootCmd := NewRootCmd()
 	cmdutil.CheckErr(rootCmd.Execute())
 }
