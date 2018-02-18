@@ -1,13 +1,11 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 
+	"github.com/hlts2/goson"
 	cmdutil "github.com/hlts2/goson/cmd/goson/util"
 	"github.com/spf13/cobra"
 )
@@ -42,28 +40,17 @@ func runRootCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	var jsonObj interface{}
-	err = json.Unmarshal(jsonData, &jsonObj)
+	g, err := goson.NewGoson(jsonData)
 	if err != nil {
-		return err
-	}
-
-	if len(selectKey) == 0 {
-		jsonData, _ := json.Marshal(jsonObj)
-
-		var buf bytes.Buffer
-		json.Indent(&buf, jsonData, "", "  ")
-
-		fmt.Println(buf.String())
 		return nil
 	}
 
-	switch reflect.TypeOf(jsonObj).String() {
-	case "map[string]interface {}":
-		v, _ := jsonObj.(map[string]interface{})
-		fmt.Println(v["array"])
-	case "[]interface {}":
-		_, _ = jsonObj.([]interface{})
+	if len(selectKey) == 0 {
+		str, err := g.JSONObjectToPrettyJSONString()
+		if err != nil {
+			return err
+		}
+		fmt.Println(str)
 	}
 
 	return nil
