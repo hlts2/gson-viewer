@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"reflect"
 
 	cmdutil "github.com/hlts2/goson/cmd/util"
 	"github.com/spf13/cobra"
@@ -55,6 +56,11 @@ func runRootCmd(cmd *cobra.Command, args []string) error {
 
 		fmt.Println(buf.String())
 		return nil
+	}
+
+	switch reflect.TypeOf(jsonObj).String() {
+	case "map[string]interface {}":
+	case "[]interface {}":
 	}
 
 	return nil
