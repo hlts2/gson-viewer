@@ -60,13 +60,9 @@ func runRootCmd(cmd *cobra.Command, args []string) error {
 
 	switch reflect.TypeOf(jsonObj).String() {
 	case "map[string]interface {}":
-		if v, ok := jsonObj.(map[string]interface{}); ok {
-			fmt.Println(reflect.TypeOf(v))
-		}
+		_, _ = jsonObj.(map[string]interface{})
 	case "[]interface {}":
-		if v, ok := jsonObj.([]interface{}); ok {
-			fmt.Println(reflect.TypeOf(v))
-		}
+		_, _ = jsonObj.([]interface{})
 	}
 
 	return nil
