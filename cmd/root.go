@@ -41,7 +41,7 @@ func runRootCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	jsonObj := []map[string]interface{}{}
+	var jsonObj interface{}
 	err = json.Unmarshal(jsonData, &jsonObj)
 	if err != nil {
 		return err
