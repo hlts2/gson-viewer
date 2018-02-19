@@ -34,3 +34,12 @@ func (g *Goson) JSONObjectToPrettyJSONString() (string, error) {
 
 	return buf.String(), nil
 }
+
+//Query return json value corresponding to keys. keys represents key of hierarchy of json
+func (g *Goson) Query(keys ...string) (interface{}, error) {
+	return nil, nil
+}
+
+func query(key string, object interface{}) (interface{}, error) {
+	return nil, nil
+}
