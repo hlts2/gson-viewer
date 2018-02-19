@@ -10,7 +10,7 @@ type Goson struct {
 	jsonObject interface{}
 }
 
-//NewGoson returns Goson instance
+//NewGoson - Returns Goson instance
 func NewGoson(data []byte) (*Goson, error) {
 	g := new(Goson)
 
@@ -20,26 +20,26 @@ func NewGoson(data []byte) (*Goson, error) {
 	return g, nil
 }
 
-//JSONObjectToPrettyJSONString convert json object to pretty json string
-func (g *Goson) JSONObjectToPrettyJSONString() (string, error) {
+//StringIndent - Convert json object to pretty json string
+func (g *Goson) StringIndent(prefix, indent string) (string, error) {
 	jsonData, err := json.Marshal(g.jsonObject)
 	if err != nil {
 		return "", err
 	}
 
 	var buf bytes.Buffer
-	if err := json.Indent(&buf, jsonData, "", " "); err != nil {
+	if err := json.Indent(&buf, jsonData, prefix, indent); err != nil {
 		return "", err
 	}
 
 	return buf.String(), nil
 }
 
-//Query return json value corresponding to keys. keys represents key of hierarchy of json
-func (g *Goson) Query(keys ...string) (interface{}, error) {
+//Search - Return json value corresponding to keys. keys represents key of hierarchy of json
+func (g *Goson) Search(keys ...string) (interface{}, error) {
 	return nil, nil
 }
 
-func query(key string, object interface{}) (interface{}, error) {
+func search(key string, object interface{}) (interface{}, error) {
 	return nil, nil
 }

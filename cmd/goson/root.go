@@ -46,7 +46,7 @@ func runRootCmd(cmd *cobra.Command, args []string) error {
 	}
 
 	if len(selectKey) == 0 {
-		str, err := g.JSONObjectToPrettyJSONString()
+		str, err := g.StringIndent("", " ")
 		if err != nil {
 			return err
 		}
