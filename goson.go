@@ -37,9 +37,19 @@ func (g *Goson) StringIndent(prefix, indent string) (string, error) {
 
 //Search - Return json value corresponding to keys. keys represents key of hierarchy of json
 func (g *Goson) Search(keys ...string) (interface{}, error) {
-	return nil, nil
-}
+	/*
+		var object interface{}
 
-func search(key string, object interface{}) (interface{}, error) {
+		for _, key := range keys {
+			if mmap, ok := g.jsonObject.(map[string]interface{}); ok {
+
+			} else if marray, ok := g.jsonObject.([]interface{}); ok {
+
+			} else {
+				return nil, errors.New("")
+			}
+		}
+	*/
+
 	return nil, nil
 }
