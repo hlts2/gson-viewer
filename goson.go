@@ -3,6 +3,8 @@ package goson
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
+	"strconv"
 )
 
 // Goson is goson base struct
@@ -37,19 +39,35 @@ func (g *Goson) StringIndent(prefix, indent string) (string, error) {
 
 // Search returns json value corresponding to keys. keys represents key of hierarchy of json
 func (g *Goson) Search(keys ...string) (interface{}, error) {
-	/*
-		var object interface{}
-
-			for _, key := range keys {
-				if mmap, ok := g.jsonObject.(map[string]interface{}); ok {
-
-				} else if marray, ok := g.jsonObject.([]interface{}); ok {
-
-				} else {
-					return nil, errors.New("")
-				}
-			}
-	*/
-
 	return nil, nil
+}
+
+func search(object interface{}, key string) (interface{}, error) {
+	index, err := strconv.Atoi(key)
+	if err == nil {
+		switch object.(type) {
+		case interface{}:
+		default:
+			return nil, errors.New("")
+		}
+
+		if len(object.([]interface{})) > index && index > 0 {
+			return object.([]interface{})[index], nil
+		}
+
+		return nil, errors.New("")
+	}
+
+	switch object.(type) {
+	case map[string]interface{}:
+	default:
+		return nil, errors.New("")
+	}
+
+	v, ok := object.(map[string]interface{})
+	if !ok {
+		return nil, errors.New("")
+	}
+
+	return v, nil
 }
