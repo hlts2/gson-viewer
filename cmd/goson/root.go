@@ -42,7 +42,7 @@ func runRootCmd(cmd *cobra.Command, args []string) error {
 
 	g, err := goson.NewGoson(jsonData)
 	if err != nil {
-		return nil
+		return err
 	}
 
 	if len(selectKey) == 0 {
