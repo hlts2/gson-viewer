@@ -46,7 +46,7 @@ func search(object interface{}, key string) (interface{}, error) {
 	index, err := strconv.Atoi(key)
 	if err == nil {
 		switch object.(type) {
-		case interface{}:
+		case []interface{}:
 		default:
 			return nil, errors.New("")
 		}
