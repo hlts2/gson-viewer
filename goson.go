@@ -41,6 +41,11 @@ func (g *Goson) Search(keys ...string) (interface{}, error) {
 	return nil, nil
 }
 
+// Path returns json value corresponding to path.
+func (g *Goson) Path(path string) (interface{}, error) {
+	return nil, nil
+}
+
 func search(object interface{}, key string) (interface{}, error) {
 	index, err := strconv.Atoi(key)
 	if err == nil {
