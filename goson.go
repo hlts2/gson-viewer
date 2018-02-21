@@ -3,14 +3,7 @@ package goson
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"strconv"
-)
-
-var (
-
-	// ErrIndexOufOfBounds is index out of bounds
-	ErrIndexOufOfBounds = errors.New("")
 )
 
 // Goson is goson base struct
@@ -54,25 +47,25 @@ func search(object interface{}, key string) (interface{}, error) {
 		switch object.(type) {
 		case []interface{}:
 		default:
-			return nil, errors.New("")
+			return nil, ErrorInvalidJSONPath{}
 		}
 
 		if len(object.([]interface{})) > index && index > 0 {
 			return object.([]interface{})[index], nil
 		}
 
-		return nil, ErrIndexOufOfBounds
+		return nil, ErrorIndexOutOfRange{}
 	}
 
 	switch object.(type) {
 	case map[string]interface{}:
 	default:
-		return nil, ErrIndexOufOfBounds
+		return nil, ErrorIndexOutOfRange{}
 	}
 
 	v, ok := object.(map[string]interface{})
 	if !ok {
-		return nil, errors.New("")
+		return nil, ErrorInvalidJSONPath{}
 	}
 
 	return v, nil
