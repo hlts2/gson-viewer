@@ -7,6 +7,12 @@ import (
 	"strconv"
 )
 
+var (
+
+	// ErrIndexOufOfBounds is index out of bounds
+	ErrIndexOufOfBounds = errors.New("")
+)
+
 // Goson is goson base struct
 type Goson struct {
 	jsonObject interface{}
@@ -55,13 +61,13 @@ func search(object interface{}, key string) (interface{}, error) {
 			return object.([]interface{})[index], nil
 		}
 
-		return nil, errors.New("")
+		return nil, ErrIndexOufOfBounds
 	}
 
 	switch object.(type) {
 	case map[string]interface{}:
 	default:
-		return nil, errors.New("")
+		return nil, ErrIndexOufOfBounds
 	}
 
 	v, ok := object.(map[string]interface{})
