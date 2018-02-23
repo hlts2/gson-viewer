@@ -18,8 +18,8 @@ var (
 	// ErrorNotMap is error that target object is not map
 	ErrorNotMap = errors.New("not map")
 
-	// ErrorInvalidJSONPath is error that json path dose not exist
-	ErrorInvalidJSONPath = errors.New("invalid json path")
+	// ErrorInvalidJSONKey is error that json path dose not exist
+	ErrorInvalidJSONKey = errors.New("invalid json path")
 )
 
 // Goson is goson base struct
@@ -84,12 +84,12 @@ func search(object interface{}, key string) (interface{}, error) {
 		return nil, ErrorNotMap
 	}
 
-	v, _ := object.(map[string]interface{})
+	mmap, _ := object.(map[string]interface{})
 
-	obj, ok := v[key]
+	v, ok := mmap[key]
 	if !ok {
-		return nil, ErrorInvalidJSONPath
+		return nil, ErrorInvalidJSONKey
 	}
 
-	return obj, nil
+	return v, nil
 }
