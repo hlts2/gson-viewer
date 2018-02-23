@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"strconv"
+	"strings"
 )
 
 var (
@@ -54,12 +55,28 @@ func (g *Goson) StringIndent(prefix, indent string) (string, error) {
 
 // Search returns json value corresponding to keys. keys represents key of hierarchy of json
 func (g *Goson) Search(keys ...string) (interface{}, error) {
-	return nil, nil
+	var err error
+	jsonObject := g.jsonObject
+
+	for _, key := range keys {
+		if jsonObject, err = search(jsonObject, key); err != nil {
+			return nil, err
+		}
+	}
+	return jsonObject, nil
 }
 
 // Path returns json value corresponding to path.
 func (g *Goson) Path(path string) (interface{}, error) {
-	return nil, nil
+	var err error
+	jsonObject := g.jsonObject
+
+	for _, key := range strings.Split(path, ".") {
+		if jsonObject, err = search(jsonObject, key); err != nil {
+			return nil, err
+		}
+	}
+	return jsonObject, nil
 }
 
 func search(object interface{}, key string) (interface{}, error) {
