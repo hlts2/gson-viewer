@@ -3,24 +3,9 @@ package goson
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
+	"io"
 	"strconv"
 	"strings"
-)
-
-var (
-
-	// ErrorIndexOutOfRange is index out of range error
-	ErrorIndexOutOfRange = errors.New("index out of range")
-
-	// ErrorNotArray is error that target object is not array
-	ErrorNotArray = errors.New("not array")
-
-	// ErrorNotMap is error that target object is not map
-	ErrorNotMap = errors.New("not map")
-
-	// ErrorInvalidJSONKey is error that json path dose not exist
-	ErrorInvalidJSONKey = errors.New("invalid json path")
 )
 
 // Goson is goson base struct
@@ -28,14 +13,42 @@ type Goson struct {
 	jsonObject interface{}
 }
 
-// NewGoson returns Goson instance
-func NewGoson(data []byte) (*Goson, error) {
+// NewGosonFromByte returns Goson instance created from byte array
+func NewGosonFromByte(data []byte) (*Goson, error) {
 	g := new(Goson)
 
-	if err := json.Unmarshal(data, &g.jsonObject); err != nil {
+	if err := decode(bytes.NewReader(data), &g.jsonObject); err != nil {
 		return nil, err
 	}
 	return g, nil
+}
+
+// NewGosonFromString returns Goson instance created from string
+func NewGosonFromString(data string) (*Goson, error) {
+	g := new(Goson)
+
+	if err := decode(strings.NewReader(data), &g.jsonObject); err != nil {
+		return nil, err
+	}
+	return g, nil
+}
+
+// NewGosonFromReader returns Goson instance created from io.Reader
+func NewGosonFromReader(reader io.Reader) (*Goson, error) {
+	g := new(Goson)
+
+	if err := decode(reader, &g.jsonObject); err != nil {
+		return nil, err
+	}
+	return g, nil
+}
+
+func decode(reader io.Reader, target *interface{}) error {
+	dec := json.NewDecoder(reader)
+	if err := dec.Decode(target); err != nil {
+		return err
+	}
+	return nil
 }
 
 // StringIndent converts json object to pretty json string
