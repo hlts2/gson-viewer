@@ -51,18 +51,21 @@ func decode(reader io.Reader, object *interface{}) error {
 	return nil
 }
 
-// StringIndent converts json object to pretty json string
-func (g *Goson) StringIndent(prefix, indent string) (string, error) {
-	jsonData, err := json.Marshal(g.jsonObject)
+// Indent converts json object to json string
+func (g *Goson) Indent(prefix, indent string) (string, error) {
+	return indentJSONString(g.jsonObject, prefix, indent)
+}
+
+func indentJSONString(object interface{}, prefix, indent string) (string, error) {
+	data, err := json.Marshal(object)
 	if err != nil {
 		return "", err
 	}
 
 	var buf bytes.Buffer
-	if err := json.Indent(&buf, jsonData, prefix, indent); err != nil {
+	if err := json.Indent(&buf, data, prefix, indent); err != nil {
 		return "", err
 	}
-
 	return buf.String(), nil
 }
 
