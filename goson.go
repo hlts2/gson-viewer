@@ -43,9 +43,9 @@ func NewGosonFromReader(reader io.Reader) (*Goson, error) {
 	return g, nil
 }
 
-func decode(reader io.Reader, target *interface{}) error {
+func decode(reader io.Reader, object *interface{}) error {
 	dec := json.NewDecoder(reader)
-	if err := dec.Decode(target); err != nil {
+	if err := dec.Decode(object); err != nil {
 		return err
 	}
 	return nil
