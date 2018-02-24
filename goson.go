@@ -13,8 +13,8 @@ type Goson struct {
 	jsonObject interface{}
 }
 
-// ResultValue is search and path result struct
-type ResultValue struct {
+// Result is search and path result struct
+type Result struct {
 	jsonObject interface{}
 }
 
