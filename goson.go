@@ -72,9 +72,8 @@ func indentJSONString(object interface{}, prefix, indent string) (string, error)
 // Search returns json value corresponding to keys. keys represents key of hierarchy of json
 func (g *Goson) Search(keys ...string) (*Result, error) {
 	var err error
-	var jsonObject interface{}
 
-	jsonObject = g.jsonObject
+	jsonObject := g.jsonObject
 
 	for _, key := range keys {
 		if jsonObject, err = search(jsonObject, key); err != nil {
@@ -87,6 +86,7 @@ func (g *Goson) Search(keys ...string) (*Result, error) {
 // Path returns json value corresponding to path.
 func (g *Goson) Path(path string) (*Result, error) {
 	var err error
+
 	jsonObject := g.jsonObject
 
 	for _, key := range strings.Split(path, ".") {
@@ -119,9 +119,7 @@ func search(object interface{}, key string) (interface{}, error) {
 		return nil, ErrorNotMap
 	}
 
-	m, _ := object.(map[string]interface{})
-
-	v, ok := m[key]
+	v, ok := object.(map[string]interface{})[key]
 	if !ok {
 		return nil, ErrorInvalidJSONKey
 	}

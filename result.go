@@ -1,11 +1,17 @@
 package goson
 
+import "errors"
+
 // Result is search and path result struct
 type Result struct {
-	jsonObject interface{}
+	object interface{}
 }
 
-//Indent converts json object to json string
-func (r *Result) Indent(prefix, indent string) (string, error) {
-	return indentJSONString(r.jsonObject, prefix, indent)
+// Int converts search and path result object to int
+func (r *Result) Int() (int, error) {
+	v, ok := r.object.(int)
+	if !ok {
+		return 0, errors.New("")
+	}
+	return v, nil
 }
