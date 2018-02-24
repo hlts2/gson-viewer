@@ -13,11 +13,6 @@ type Goson struct {
 	jsonObject interface{}
 }
 
-// Result is search and path result struct
-type Result struct {
-	jsonObject interface{}
-}
-
 // NewGosonFromByte returns Goson instance created from byte array
 func NewGosonFromByte(data []byte) (*Goson, error) {
 	g := new(Goson)
