@@ -117,9 +117,9 @@ func search(object interface{}, key string) (interface{}, error) {
 		return nil, ErrorNotMap
 	}
 
-	mmap, _ := object.(map[string]interface{})
+	m, _ := object.(map[string]interface{})
 
-	v, ok := mmap[key]
+	v, ok := m[key]
 	if !ok {
 		return nil, ErrorInvalidJSONKey
 	}
