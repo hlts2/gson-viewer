@@ -75,7 +75,7 @@ func indentJSONString(object interface{}, prefix, indent string) (string, error)
 }
 
 // Search returns json value corresponding to keys. keys represents key of hierarchy of json
-func (g *Goson) Search(keys ...string) (interface{}, error) {
+func (g *Goson) Search(keys ...string) (*Result, error) {
 	var err error
 	var jsonObject interface{}
 
@@ -86,11 +86,11 @@ func (g *Goson) Search(keys ...string) (interface{}, error) {
 			return nil, err
 		}
 	}
-	return jsonObject, nil
+	return &Result{jsonObject}, nil
 }
 
 // Path returns json value corresponding to path.
-func (g *Goson) Path(path string) (interface{}, error) {
+func (g *Goson) Path(path string) (*Result, error) {
 	var err error
 	jsonObject := g.jsonObject
 
@@ -99,7 +99,7 @@ func (g *Goson) Path(path string) (interface{}, error) {
 			return nil, err
 		}
 	}
-	return jsonObject, nil
+	return &Result{jsonObject}, nil
 }
 
 func search(object interface{}, key string) (interface{}, error) {
