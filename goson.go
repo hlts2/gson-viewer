@@ -106,8 +106,10 @@ func search(object interface{}, key string) (interface{}, error) {
 			return nil, ErrorNotArray
 		}
 
-		if len(object.([]interface{})) > index && index > 0 {
-			return object.([]interface{})[index], nil
+		v := object.([]interface{})
+
+		if 0 <= index && index < len(v) {
+			return v[index], nil
 		}
 
 		return nil, ErrorIndexOutOfRange
