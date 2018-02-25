@@ -149,8 +149,6 @@ func (g *Goson) Path(path string) (*Result, error) {
 }
 
 func search(object interface{}, key string) (interface{}, error) {
-	const fn = "search"
-
 	index, err := strconv.Atoi(key)
 	if err == nil {
 		switch object.(type) {
