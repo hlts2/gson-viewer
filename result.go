@@ -19,7 +19,7 @@ func (e *ResultError) Error() string {
 	return "goson." + e.Fn + ": parsing: " + Quote(e.Object) + ": " + e.Err.Error()
 }
 
-//Quote returns quoted value
+//Quote returns quoted object string
 func Quote(object interface{}) string {
 	return fmt.Sprintf("\"%v\"", object)
 }
