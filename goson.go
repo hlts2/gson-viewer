@@ -131,12 +131,14 @@ func (g *Goson) Path(path string) (*Result, error) {
 }
 
 func search(object interface{}, key string) (interface{}, error) {
+	const fn = "search"
+
 	index, err := strconv.Atoi(key)
 	if err == nil {
 		switch object.(type) {
 		case []interface{}:
 		default:
-			return nil, ErrorNotArray
+			return nil, &GosonError{fn, object, ErrorNotArray}
 		}
 
 		v := object.([]interface{})
@@ -151,7 +153,7 @@ func search(object interface{}, key string) (interface{}, error) {
 	switch object.(type) {
 	case map[string]interface{}:
 	default:
-		return nil, ErrorNotMap
+		return nil, &GosonError{fn, object, ErrorNotArray}
 	}
 
 	v, ok := object.(map[string]interface{})[key]
