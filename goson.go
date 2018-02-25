@@ -27,13 +27,12 @@ var (
 
 // GosonError represents a json parse error
 type GosonError struct {
-	Fn    string
 	Value interface{}
 	Err   error
 }
 
 func (e *GosonError) Error() string {
-	return "goson." + e.Fn + ": parsing " + Quote(e.Value) + ": " + e.Err.Error()
+	return Quote(e.Value) + ": " + e.Err.Error()
 }
 
 // Quote returns quoted object string
@@ -138,7 +137,7 @@ func search(object interface{}, key string) (interface{}, error) {
 		switch object.(type) {
 		case []interface{}:
 		default:
-			return nil, &GosonError{fn, object, ErrorNotArray}
+			return nil, &GosonError{object, ErrorNotArray}
 		}
 
 		v := object.([]interface{})
@@ -147,18 +146,18 @@ func search(object interface{}, key string) (interface{}, error) {
 			return v[index], nil
 		}
 
-		return nil, ErrorIndexOutOfRange
+		return nil, &GosonError{index, ErrorIndexOutOfRange}
 	}
 
 	switch object.(type) {
 	case map[string]interface{}:
 	default:
-		return nil, &GosonError{fn, object, ErrorNotArray}
+		return nil, &GosonError{object, ErrorNotArray}
 	}
 
 	v, ok := object.(map[string]interface{})[key]
 	if !ok {
-		return nil, ErrorInvalidJSONKey
+		return nil, &GosonError{key, ErrorInvalidJSONKey}
 	}
 
 	return v, nil
