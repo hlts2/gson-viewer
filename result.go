@@ -64,3 +64,14 @@ func (r *Result) Int32() (int32, error) {
 		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
 	}
 }
+
+func (r *Result) float64() (float64, error) {
+	const fn = "float64"
+
+	switch r.object.(type) {
+	case float64:
+		return r.object.(float64), nil
+	default:
+		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
