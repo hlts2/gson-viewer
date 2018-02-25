@@ -314,11 +314,23 @@ func (r *Result) Float64() (float64, error) {
 
 // Byte converts an interface{} to a byte and returns an error if types don't match.
 func (r *Result) Byte() (byte, error) {
-	const fn = "byte"
+	const fn = "Byte"
 
 	switch r.object.(type) {
 	case byte:
 		return r.object.(byte), nil
+	default:
+		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
+
+// Rune converts an interface{} to a rune and returns an error if types don't match.
+func (r *Result) Rune() (rune, error) {
+	const fn = "Rune"
+
+	switch r.object.(type) {
+	case rune:
+		return r.object.(rune), nil
 	default:
 		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
 	}
