@@ -53,6 +53,30 @@ func (r *Result) Uint16() (uint16, error) {
 	}
 }
 
+// Uint32 converts an interface{} to a uint32 and returns an error if types don't match.
+func (r *Result) Uint32() (uint32, error) {
+	const fn = "uint32"
+
+	switch r.object.(type) {
+	case uint32:
+		return r.object.(uint32), nil
+	default:
+		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
+
+// Uint64 converts an interface{} to a uint64 and returns an error if types don't match.
+func (r *Result) Uint64() (uint64, error) {
+	const fn = "uint64"
+
+	switch r.object.(type) {
+	case uint64:
+		return r.object.(uint64), nil
+	default:
+		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
+
 // Int8 converts an interface{} to a int8 and returns an error if types don't match.
 func (r *Result) Int8() (int8, error) {
 	const fn = "int8"
