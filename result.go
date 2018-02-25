@@ -5,10 +5,10 @@ import (
 	"fmt"
 )
 
-//ErrorInvalidSyntax represents invaild syntax error
+// ErrorInvalidSyntax represents invaild syntax error
 var ErrorInvalidSyntax = errors.New("invalid syntax")
 
-//ResultError represents a conversion error
+// ResultError represents a conversion error
 type ResultError struct {
 	Fn     string
 	Object interface{}
@@ -19,7 +19,7 @@ func (e *ResultError) Error() string {
 	return "goson." + e.Fn + ": parsing: " + Quote(e.Object) + ": " + e.Err.Error()
 }
 
-//Quote returns quoted object string
+// Quote returns quoted object string
 func Quote(object interface{}) string {
 	return fmt.Sprintf("\"%v\"", object)
 }
