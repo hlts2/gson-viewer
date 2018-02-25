@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 	"strings"
@@ -23,6 +24,22 @@ var (
 	// ErrorInvalidJSONKey represents error that json key dose not exist
 	ErrorInvalidJSONKey = errors.New("invalid json Key")
 )
+
+// GosonError represents a json parse error
+type GosonError struct {
+	Fn    string
+	Value interface{}
+	Err   error
+}
+
+func (e *GosonError) Error() string {
+	return "goson." + e.Fn + ": parsing " + Quote(e.Value) + ": " + e.Err.Error()
+}
+
+// Quote returns quoted object string
+func Quote(object interface{}) string {
+	return fmt.Sprintf("\"%v\"", object)
+}
 
 // Goson is goson base struct
 type Goson struct {

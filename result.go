@@ -2,7 +2,6 @@ package goson
 
 import (
 	"errors"
-	"fmt"
 )
 
 // ErrorInvalidSyntax represents invaild syntax error
@@ -16,12 +15,7 @@ type ResultError struct {
 }
 
 func (e *ResultError) Error() string {
-	return "goson." + e.Fn + ": parsing: " + Quote(e.Object) + ": " + e.Err.Error()
-}
-
-// Quote returns quoted object string
-func Quote(object interface{}) string {
-	return fmt.Sprintf("\"%v\"", object)
+	return "goson." + e.Fn + ": parsing " + Quote(e.Object) + ": " + e.Err.Error()
 }
 
 // Result represents a json value that is returned from Search() and Path().
