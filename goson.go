@@ -288,8 +288,8 @@ func (r *Result) Int() (int, error) {
 	}
 }
 
-// float32 converts an interface{} to a float32 and returns an error if types don't match.
-func (r *Result) float32() (float32, error) {
+// Float32 converts an interface{} to a float32 and returns an error if types don't match.
+func (r *Result) Float32() (float32, error) {
 	const fn = "float32"
 
 	switch r.object.(type) {
@@ -300,13 +300,25 @@ func (r *Result) float32() (float32, error) {
 	}
 }
 
-// float64 converts an interface{} to a float64 and returns an error if types don't match.
-func (r *Result) float64() (float64, error) {
+// Float64 converts an interface{} to a float64 and returns an error if types don't match.
+func (r *Result) Float64() (float64, error) {
 	const fn = "float64"
 
 	switch r.object.(type) {
 	case float64:
 		return r.object.(float64), nil
+	default:
+		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
+
+// Byte converts an interface{} to a byte and returns an error if types don't match.
+func (r *Result) Byte() (byte, error) {
+	const fn = "byte"
+
+	switch r.object.(type) {
+	case byte:
+		return r.object.(byte), nil
 	default:
 		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
 	}
