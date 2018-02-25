@@ -29,6 +29,30 @@ type Result struct {
 	object interface{}
 }
 
+// Uint8 converts an interface{} to a uint8 and returns an error if types don't match.
+func (r *Result) Uint8() (uint8, error) {
+	const fn = "uint8"
+
+	switch r.object.(type) {
+	case uint8:
+		return r.object.(uint8), nil
+	default:
+		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
+
+// Uint16 converts an interface{} to a uint16 and returns an error if types don't match.
+func (r *Result) Uint16() (uint16, error) {
+	const fn = "uint16"
+
+	switch r.object.(type) {
+	case uint16:
+		return r.object.(uint16), nil
+	default:
+		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
+
 // Int8 converts an interface{} to a int8 and returns an error if types don't match.
 func (r *Result) Int8() (int8, error) {
 	const fn = "int8"
