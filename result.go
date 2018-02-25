@@ -29,18 +29,6 @@ type Result struct {
 	object interface{}
 }
 
-// Int converts an interface{} to a int and returns an error if types don't match.
-func (r *Result) Int() (int, error) {
-	const fn = "Int"
-
-	switch r.object.(type) {
-	case int:
-		return r.object.(int), nil
-	default:
-		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
-	}
-}
-
 // Int8 converts an interface{} to a int8 and returns an error if types don't match.
 func (r *Result) Int8() (int8, error) {
 	const fn = "int8"
@@ -84,6 +72,18 @@ func (r *Result) Int64() (int64, error) {
 	switch r.object.(type) {
 	case int64:
 		return r.object.(int64), nil
+	default:
+		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
+
+// Int converts an interface{} to a int and returns an error if types don't match.
+func (r *Result) Int() (int, error) {
+	const fn = "Int"
+
+	switch r.object.(type) {
+	case int:
+		return r.object.(int), nil
 	default:
 		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
 	}
