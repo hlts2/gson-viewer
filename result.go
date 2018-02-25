@@ -52,3 +52,15 @@ func (r *Result) Int64() (int64, error) {
 		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
 	}
 }
+
+// Int32 converts an interface{} to a int32 and returns an error if types don't match.
+func (r *Result) Int32() (int32, error) {
+	const fn = "Int32"
+
+	switch r.object.(type) {
+	case int32:
+		return r.object.(int32), nil
+	default:
+		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
