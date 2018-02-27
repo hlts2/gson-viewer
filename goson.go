@@ -336,6 +336,30 @@ func (r *Result) Rune() (rune, error) {
 	}
 }
 
+// Complex64 converts an interface{} to a complex64 and returns an error if types don't match.
+func (r *Result) Complex64() (complex64, error) {
+	const fn = "Complex64"
+
+	switch r.object.(type) {
+	case complex64:
+		return r.object.(complex64), nil
+	default:
+		return 0 + 0i, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
+
+// Complex128 converts an interface{} to a complexa128 and returns an error if types don't match.
+func (r *Result) Complex128() (complex128, error) {
+	const fn = "Complex128"
+
+	switch r.object.(type) {
+	case complex128:
+		return r.object.(complex128), nil
+	default:
+		return 0 + 0i, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
+
 // Bool converts an interface{} to a bool and returns an error if types don't match.
 func (r *Result) Bool() (bool, error) {
 	const fn = "Bool"
