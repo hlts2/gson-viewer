@@ -28,16 +28,6 @@ var (
 	ErrorInvalidSyntax = errors.New("invalid syntax")
 )
 
-// GosonError represents a json parse error
-type GosonError struct {
-	Value interface{}
-	Err   error
-}
-
-func (e *GosonError) Error() string {
-	return Quote(e.Value) + ": " + e.Err.Error()
-}
-
 // ResultError represents a conversion error
 type ResultError struct {
 	Fn     string
@@ -154,7 +144,7 @@ func search(object interface{}, key string) (interface{}, error) {
 		switch object.(type) {
 		case []interface{}:
 		default:
-			return nil, &GosonError{object, ErrorNotArray}
+			return nil, ErrorNotArray
 		}
 
 		v := object.([]interface{})
@@ -163,18 +153,18 @@ func search(object interface{}, key string) (interface{}, error) {
 			return v[index], nil
 		}
 
-		return nil, &GosonError{index, ErrorIndexOutOfRange}
+		return nil, ErrorIndexOutOfRange
 	}
 
 	switch object.(type) {
 	case map[string]interface{}:
 	default:
-		return nil, &GosonError{object, ErrorNotArray}
+		return nil, ErrorNotArray
 	}
 
 	v, ok := object.(map[string]interface{})[key]
 	if !ok {
-		return nil, &GosonError{key, ErrorInvalidJSONKey}
+		return nil, ErrorInvalidJSONKey
 	}
 
 	return v, nil
