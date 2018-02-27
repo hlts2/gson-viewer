@@ -171,8 +171,12 @@ func search(object interface{}, key string) (interface{}, error) {
 }
 
 // Indent converts json object to json string
-func (r *Result) Indent(prefix, indent string) (string, error) {
-	return indentJSONString(r.object, prefix, indent)
+func (r *Result) Indent(prefix, indent string) string {
+	str, err := indentJSONString(r.object, prefix, indent)
+	if err != nil {
+		return fmt.Sprintf("%v", r.object)
+	}
+	return str
 }
 
 // Uint8 converts an interface{} to a uint8 and returns an error if types don't match.
