@@ -175,6 +175,11 @@ func (r *Result) Indent(prefix, indent string) (string, error) {
 	return indentJSONString(r.object, prefix, indent)
 }
 
+// ToGoson converts an Result pointer to a Goson pointer
+func (r *Result) ToGoson() *Goson {
+	return &Goson{r.object}
+}
+
 // Uint8 converts an interface{} to a uint8 and returns an error if types don't match.
 func (r *Result) Uint8() (uint8, error) {
 	const fn = "Uint8"
@@ -364,17 +369,5 @@ func (r *Result) Bool() (bool, error) {
 		return r.object.(bool), nil
 	default:
 		return false, &ResultError{fn, r.object, ErrorInvalidSyntax}
-	}
-}
-
-// Map converts an interface{} to a map[string]interface{} and returns an error if types don't match.
-func (r *Result) Map() (map[string]interface{}, error) {
-	const fn = "Map"
-
-	switch r.object.(type) {
-	case map[string]interface{}:
-		return r.object.(map[string]interface{}), nil
-	default:
-		return nil, &ResultError{fn, r.object, ErrorInvalidSyntax}
 	}
 }
