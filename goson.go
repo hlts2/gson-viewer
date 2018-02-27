@@ -182,7 +182,7 @@ func search(object interface{}, key string) (interface{}, error) {
 
 // Uint8 converts an interface{} to a uint8 and returns an error if types don't match.
 func (r *Result) Uint8() (uint8, error) {
-	const fn = "uint8"
+	const fn = "Uint8"
 
 	switch r.object.(type) {
 	case uint8:
@@ -194,7 +194,7 @@ func (r *Result) Uint8() (uint8, error) {
 
 // Uint16 converts an interface{} to a uint16 and returns an error if types don't match.
 func (r *Result) Uint16() (uint16, error) {
-	const fn = "uint16"
+	const fn = "Uint16"
 
 	switch r.object.(type) {
 	case uint16:
@@ -206,7 +206,7 @@ func (r *Result) Uint16() (uint16, error) {
 
 // Uint32 converts an interface{} to a uint32 and returns an error if types don't match.
 func (r *Result) Uint32() (uint32, error) {
-	const fn = "uint32"
+	const fn = "Uint32"
 
 	switch r.object.(type) {
 	case uint32:
@@ -218,7 +218,7 @@ func (r *Result) Uint32() (uint32, error) {
 
 // Uint64 converts an interface{} to a uint64 and returns an error if types don't match.
 func (r *Result) Uint64() (uint64, error) {
-	const fn = "uint64"
+	const fn = "Uint64"
 
 	switch r.object.(type) {
 	case uint64:
@@ -230,7 +230,7 @@ func (r *Result) Uint64() (uint64, error) {
 
 // Int8 converts an interface{} to a int8 and returns an error if types don't match.
 func (r *Result) Int8() (int8, error) {
-	const fn = "int8"
+	const fn = "Int8"
 
 	switch r.object.(type) {
 	case int8:
@@ -242,7 +242,7 @@ func (r *Result) Int8() (int8, error) {
 
 // Int16 converts an interface{} to a int16 and returns an error if types don't match.
 func (r *Result) Int16() (int16, error) {
-	const fn = "int16"
+	const fn = "Int16"
 
 	switch r.object.(type) {
 	case int16:
@@ -290,7 +290,7 @@ func (r *Result) Int() (int, error) {
 
 // Float32 converts an interface{} to a float32 and returns an error if types don't match.
 func (r *Result) Float32() (float32, error) {
-	const fn = "float32"
+	const fn = "Float32"
 
 	switch r.object.(type) {
 	case float32:
@@ -302,7 +302,7 @@ func (r *Result) Float32() (float32, error) {
 
 // Float64 converts an interface{} to a float64 and returns an error if types don't match.
 func (r *Result) Float64() (float64, error) {
-	const fn = "float64"
+	const fn = "Float64"
 
 	switch r.object.(type) {
 	case float64:
