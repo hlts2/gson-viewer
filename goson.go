@@ -335,3 +335,15 @@ func (r *Result) Rune() (rune, error) {
 		return 0, &ResultError{fn, r.object, ErrorInvalidSyntax}
 	}
 }
+
+// Bool converts an interface{} to a bool and returns an error if types don't match.
+func (r *Result) Bool() (bool, error) {
+	const fn = "Bool"
+
+	switch r.object.(type) {
+	case bool:
+		return r.object.(bool), nil
+	default:
+		return false, &ResultError{fn, r.object, ErrorInvalidSyntax}
+	}
+}
