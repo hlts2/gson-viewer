@@ -64,7 +64,7 @@ var welcomText = `
 interactive command-line JSON viewer
 `
 
-// Run execute REPL of json-viewer
+// Run execute REPL
 func (r *repl) Run() {
 	fmt.Println(welcomText)
 	r.Prompt.Run()
