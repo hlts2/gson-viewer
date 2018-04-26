@@ -10,6 +10,13 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "gson-viewer",
 	Short: "A CLI tool to view JSON",
+	Run: func(cmd *cobra.Command, args []string) {
+
+	},
+}
+
+func init() {
+	rootCmd.PersistentFlags().StringP("set", "s", "", "set json file")
 }
 
 // Execute execute gson-viewer
