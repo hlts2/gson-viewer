@@ -15,8 +15,10 @@ var rootCmd = &cobra.Command{
 	},
 }
 
+var jsonFileN string
+
 func init() {
-	rootCmd.PersistentFlags().StringP("set", "s", "", "set json file")
+	rootCmd.PersistentFlags().StringVarP(&jsonFileN, "set", "s", "", "set json file")
 }
 
 // Execute execute gson-viewer
