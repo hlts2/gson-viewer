@@ -1,2 +1,2 @@
-# goson
-goson
+# gson-viewer
+gson-viewer
