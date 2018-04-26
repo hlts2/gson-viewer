@@ -36,8 +36,7 @@ func gsonViewer(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	NewREPL(gson).Run()
-	return nil
+	return NewREPL(gson).Run()
 }
 
 // Execute execute gson-viewer

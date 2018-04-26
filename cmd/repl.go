@@ -10,7 +10,7 @@ import (
 
 // REPL is REPL interface
 type REPL interface {
-	Run()
+	Run() error
 }
 
 // repl repsents REPL base structor
@@ -65,7 +65,9 @@ interactive command-line JSON viewer
 `
 
 // Run execute REPL
-func (r *repl) Run() {
+func (r *repl) Run() error {
 	fmt.Println(welcomText)
 	r.Prompt.Run()
+
+	return nil
 }
