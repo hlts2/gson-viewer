@@ -41,7 +41,8 @@ func (r *repl) executer(in string) {
 	result, err := r.Gson.GetByPath(in)
 	if err != nil {
 		if in == "show" {
-			fmt.Println(r.Gson.Indent("", "  "))
+			str, _ := r.Gson.Indent("", "  ")
+			fmt.Println(str)
 			return
 		}
 
