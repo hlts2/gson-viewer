@@ -6,6 +6,7 @@ import (
 
 	prompt "github.com/c-bata/go-prompt"
 	"github.com/hlts2/gson"
+	"github.com/hlts2/gson-viewer/pkg/gson-viewer"
 )
 
 // REPL is REPL interface
@@ -38,7 +39,9 @@ func NewREPL(gson *gson.Gson) REPL {
 }
 
 func (r *repl) executer(in string) {
-	result, err := r.Gson.GetByPath(in)
+	normalizedIn := gsonviewer.NormalizeInputText(&in)
+
+	result, err := r.Gson.GetByPath(normalizedIn)
 	if err != nil {
 		if in == "show" {
 			str, _ := r.Gson.Indent("", "  ")

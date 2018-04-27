@@ -31,7 +31,7 @@ func gsonViewer(cmd *cobra.Command, args []string) error {
 		return errors.New("json file dose not set")
 	}
 
-	gson, err := jsonviewer.LoadJSON(jsonFileN)
+	gson, err := gsonviewer.LoadJSON(jsonFileN)
 	if err != nil {
 		return err
 	}
