@@ -8,8 +8,12 @@ func TestNormalizeInputText(t *testing.T) {
 		expected string
 	}{
 		{
-			input:    "list.[0].name",
-			expected: "list.0.name",
+			input:    "lists.[0].name",
+			expected: "lists.0.name",
+		},
+		{
+			input:    "[0]aaaa",
+			expected: "0aaaa",
 		},
 	}
 
