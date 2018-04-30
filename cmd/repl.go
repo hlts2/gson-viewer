@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 
@@ -44,8 +45,9 @@ func (r *repl) executer(in string) {
 	result, err := r.Gson.GetByPath(normalizedIn)
 	if err != nil {
 		if in == "show" {
-			str, _ := r.Gson.Indent("", "  ")
-			fmt.Println(str)
+			var buf bytes.Buffer
+			r.Gson.Indent(&buf, "", "  ")
+			fmt.Println(buf.String())
 			return
 		}
 
@@ -53,7 +55,9 @@ func (r *repl) executer(in string) {
 		return
 	}
 
-	fmt.Println(result.Indent("", "  "))
+	var buf bytes.Buffer
+	result.Indent(&buf, "", "  ")
+	fmt.Println(buf.String())
 }
 
 var welcomText = `
