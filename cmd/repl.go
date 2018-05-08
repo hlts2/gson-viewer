@@ -57,7 +57,8 @@ func (r *repl) executer(in string) {
 
 	var buf bytes.Buffer
 	result.Indent(&buf, "", "  ")
-	fmt.Println(buf.String())
+
+	fmt.Fprintln(os.Stdout, buf.String())
 }
 
 var welcomText = `
