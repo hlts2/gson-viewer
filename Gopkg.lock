@@ -11,7 +11,7 @@
   branch = "master"
   name = "github.com/hlts2/gson"
   packages = ["."]
-  revision = "084426716b75d67200a3fcc65f746a918c6c227a"
+  revision = "d117ca05c0d837cad27a8c1c16e3d3ec939ca47b"
 
 [[projects]]
   name = "github.com/inconshreveable/mousetrap"
@@ -65,11 +65,11 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "cbbc999da32df943dac6cd71eb3ee39e1d7838b9"
+  revision = "7db1c3b1a98089d0071c84f646ff5c96aad43682"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "83f136441ec25a5ec6716e515b656d258058fb2d55223380e744577ddb7dab71"
+  inputs-digest = "83fae1feb330da629e787b1d9daf14d46e43918a1aa3845f42bb93fe51094ec8"
   solver-name = "gps-cdcl"
   solver-version = 1

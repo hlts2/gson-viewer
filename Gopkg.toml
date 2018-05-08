@@ -22,5 +22,13 @@
 
 
 [[constraint]]
+  name = "github.com/c-bata/go-prompt"
+  version = "0.2.1"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/hlts2/gson"
+
+[[constraint]]
   name = "github.com/spf13/cobra"
-  version = "0.0.1"
+  version = "0.0.2"
