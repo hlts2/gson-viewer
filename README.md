@@ -39,7 +39,6 @@ The path is in "." syntax such as "created_at.date". And if you want to get the 
         "timezone": "UTC"
     }
 }
-
 ```
 
 ```shell
@@ -53,4 +52,10 @@ The `show` command shows shaped JSON
 
 ```shell
 >>> show
+```
+
+#### How to exit
+
+```
+ctl-d
 ```
