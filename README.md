@@ -26,7 +26,7 @@ gson-viewer -s {json file}
 ### REPL Mode
 #### How to get JSON value
 
-The path is in "." syntax such as "created_at.date". And if you want to get the element of array, please put a number such as "friends.[0]".
+The path is syntax such as `created_at.date`. And if you want to get the element of array, please put a number such as `friends.[0]`.
 
 ```json
 {
