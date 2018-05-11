@@ -1,4 +1,7 @@
 # gson-viewer
+
+[![Join the chat at https://gitter.im/gson-viewer/Lobby](https://badges.gitter.im/gson-viewer/Lobby.svg)](https://gitter.im/gson-viewer/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 gson-viewer is an interactive command-line JSON viewer.
 
 ## Install
