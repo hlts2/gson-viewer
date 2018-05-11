@@ -1,4 +1,4 @@
-# gson-viewer [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Go Report Card](https://goreportcard.com/badge/github.com/hlts2/gson-viewer)](https://goreportcard.com/report/github.com/hlts2/gson-viewer) [![Join the chat at https://gitter.im/hlts2/gson-viewer](https://badges.gitter.im/hlts2/gson-viewer.svg)](https://gitter.im/gson-viewer/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+# gson-viewer [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Go Report Card](https://goreportcard.com/badge/github.com/hlts2/gson-viewer)](https://goreportcard.com/report/github.com/hlts2/gson-viewer) [![Gitter](https://badges.gitter.im/hlts2/gson-viewer.svg)](https://gitter.im/hlts2/gson-viewer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 gson-viewer is an interactive command-line JSON viewer.
 
 ## Install
