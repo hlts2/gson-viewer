@@ -66,107 +66,60 @@ func NewGsonFromReader(reader io.Reader) (*Gson, error) {
 	return g, nil
 }
 
-func isJSON(object interface{}) bool {
-	if _, err := ffjson.Marshal(object); err != nil {
-		return false
-	}
-	return true
-}
-
 // Indent converts json object to json string
-func (g *Gson) Indent(buf *bytes.Buffer, prefix, indent string) error {
-	return indentJSON(buf, g.jsonObject, prefix, indent)
+func (g *Gson) Indent(dist *bytes.Buffer, prefix, indent string) error {
+	return indentJSON(dist, g.jsonObject, prefix, indent)
 }
 
-func indentJSON(buf *bytes.Buffer, object interface{}, prefix, indent string) error {
-	data, err := ffjson.Marshal(object)
+func indentJSON(dist *bytes.Buffer, object interface{}, prefix, indent string) error {
+	var src bytes.Buffer
+	err := ffjson.NewEncoder(&src).Encode(object)
 	if err != nil {
 		return err
 	}
 
-	if err := json.Indent(buf, data, prefix, indent); err != nil {
+	err = json.Indent(dist, src.Bytes(), prefix, indent)
+	if err != nil {
 		return err
 	}
 	return nil
 }
 
-/*
-// HasWithKeys returns bool if there is json value coresponding to keys
-func (g *Gson) HasWithKeys(keys ...string) bool {
-	var err error
-
-	jsonObject := g.jsonObject
-	for _, key := range keys {
-		jsonObject, err = getByKey(jsonObject, key)
-		if err != nil {
-			return false
-		}
-	}
-	return true
-}
-
-// HasWithPath returns bool if there is json value coresponding to path
-func (g *Gson) HasWithPath(path string) bool {
-	var err error
-
-	jsonObject := g.jsonObject
-	for _, key := range strings.Split(path, ".") {
-		jsonObject, err = getByKey(jsonObject, key)
-		if err != nil {
-			return false
-		}
-	}
-	return true
-}
-*/
-
 // GetByKeys returns json value corresponding to keys. keys represents key of hierarchy of json
 func (g *Gson) GetByKeys(keys ...string) (*Result, error) {
-	var err error
-	jsonObject := g.jsonObject
-
-	for _, key := range keys {
-		if jsonObject, err = getByKey(jsonObject, key); err != nil {
-			return nil, err
-		}
-	}
-	return &Result{jsonObject}, nil
+	return g.getByKeys(keys)
 }
 
 // GetByPath returns json value corresponding to path.
 func (g *Gson) GetByPath(path string) (*Result, error) {
-	keys := strings.Split(path, ".")
+	return g.getByKeys(strings.Split(path, "."))
+}
 
-	var err error
+func (g *Gson) getByKeys(keys []string) (*Result, error) {
 	jsonObject := g.jsonObject
 
 	for _, key := range keys {
-		if jsonObject, err = getByKey(jsonObject, key); err != nil {
-			return nil, err
-		}
-	}
-	return &Result{jsonObject}, nil
-}
-
-func getByKey(object interface{}, key string) (interface{}, error) {
-	index, err := strconv.Atoi(key)
-	if err == nil {
-		if v, ok := object.([]interface{}); ok {
-			if index >= 0 && index < len(v) {
-				return v[index], nil
+		if mmap, ok := jsonObject.(map[string]interface{}); ok {
+			if val, ok := mmap[key]; ok {
+				jsonObject = val
+				continue
 			}
-			return nil, ErrorIndexOutOfRange
-		}
-		return nil, ErrorNotSlice
-	}
-
-	if m, ok := object.(map[string]interface{}); ok {
-		if v, ok := m[key]; ok {
-			return v, nil
+		} else if marray, ok := jsonObject.([]interface{}); ok {
+			idx64, err := strconv.ParseInt(key, 10, 0)
+			idx := int(idx64)
+			if err == nil {
+				if idx >= 0 && idx < len(marray) {
+					jsonObject = marray[idx]
+					continue
+				} else {
+					return nil, ErrorIndexOutOfRange
+				}
+			}
 		}
 		return nil, ErrorInvalidJSONKey
 	}
-	return nil, ErrorNotMap
+
+	return &Result{jsonObject}, nil
 }
 
 // Indent converts json object to json buffer
@@ -772,7 +725,7 @@ func (r *Result) Slice() ([]*Result, error) {
 	}
 }
 
-// Map converts an Result pointer slice and returns an error if types don't match.
+// Map converts an Result pointer map and returns an error if types don't match.
 func (r *Result) Map() (map[string]*Result, error) {
 	switch m := r.object.(type) {
 	case map[string]interface{}:

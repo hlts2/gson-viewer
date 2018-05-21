@@ -11,7 +11,7 @@
   branch = "master"
   name = "github.com/hlts2/gson"
   packages = ["."]
-  revision = "d117ca05c0d837cad27a8c1c16e3d3ec939ca47b"
+  revision = "107c9f1a5457c0f1bc6ae51d21e1dc64a1f66463"
 
 [[projects]]
   name = "github.com/inconshreveable/mousetrap"
@@ -52,8 +52,8 @@
 [[projects]]
   name = "github.com/spf13/cobra"
   packages = ["."]
-  revision = "a1f051bc3eba734da4772d60e2d677f47cf93ef4"
-  version = "v0.0.2"
+  revision = "ef82de70bb3f60c65fb8eebacbb2d122ef517385"
+  version = "v0.0.3"
 
 [[projects]]
   name = "github.com/spf13/pflag"
@@ -65,7 +65,7 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "7db1c3b1a98089d0071c84f646ff5c96aad43682"
+  revision = "7c87d13f8e835d2fb3a70a2912c811ed0c1d241b"
 
 [solve-meta]
   analyzer-name = "dep"
