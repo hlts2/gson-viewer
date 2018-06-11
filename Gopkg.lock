@@ -11,7 +11,7 @@
   branch = "master"
   name = "github.com/hlts2/gson"
   packages = ["."]
-  revision = "107c9f1a5457c0f1bc6ae51d21e1dc64a1f66463"
+  revision = "ced435315fb333b0ce82c169ab40bcca93c9e173"
 
 [[projects]]
   name = "github.com/inconshreveable/mousetrap"
@@ -65,7 +65,7 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "7c87d13f8e835d2fb3a70a2912c811ed0c1d241b"
+  revision = "bff228c7b664c5fce602223a05fb708fd8654986"
 
 [solve-meta]
   analyzer-name = "dep"

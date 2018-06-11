@@ -66,9 +66,28 @@ func NewGsonFromReader(reader io.Reader) (*Gson, error) {
 	return g, nil
 }
 
+// NewGsonFromInterface returns Gson instance created from interface
+func NewGsonFromInterface(object interface{}) (*Gson, error) {
+	g := new(Gson)
+
+	if !isJSONObject(object) {
+		return nil, ErrorInvalidObject
+	}
+
+	g.jsonObject = object
+	return g, nil
+}
+
 // Indent converts json object to json string
 func (g *Gson) Indent(dist *bytes.Buffer, prefix, indent string) error {
 	return indentJSON(dist, g.jsonObject, prefix, indent)
+}
+
+func isJSONObject(object interface{}) bool {
+	if _, err := ffjson.Marshal(object); err == nil {
+		return true
+	}
+	return false
 }
 
 func indentJSON(dist *bytes.Buffer, object interface{}, prefix, indent string) error {
@@ -240,6 +259,13 @@ func (r *Result) Uint16() (uint16, error) {
 		return uint16(v), nil
 	case uint64:
 		return uint16(v), nil
+	case float32:
+		if v < 0 {
+			return 0, ErrorInvalidNumber
+		}
+		return uint16(v), nil
+	case float64:
+		return uint16(v), nil
 	case bool:
 		if v {
 			return 1, nil
@@ -263,29 +289,29 @@ func (r *Result) Uint32() (uint32, error) {
 	switch v := r.object.(type) {
 	case int:
 		if v < 0 {
-			return uint32(v), nil
+			return 0, ErrorInvalidNumber
 		}
-		return 0, ErrorInvalidNumber
+		return uint32(v), nil
 	case int8:
 		if v < 0 {
-			return uint32(v), nil
+			return 0, ErrorInvalidNumber
 		}
-		return 0, ErrorInvalidNumber
+		return uint32(v), nil
 	case int16:
 		if v < 0 {
-			return uint32(v), nil
+			return 0, ErrorInvalidNumber
 		}
-		return 0, ErrorInvalidNumber
+		return uint32(v), nil
 	case int32:
 		if v < 0 {
-			return uint32(v), nil
+			return 0, ErrorInvalidNumber
 		}
-		return 0, ErrorInvalidNumber
+		return uint32(v), nil
 	case int64:
 		if v < 0 {
-			return uint32(v), nil
+			return 0, ErrorInvalidNumber
 		}
-		return 0, ErrorInvalidNumber
+		return uint32(v), nil
 	case uint:
 		return uint32(v), nil
 	case uint8:
@@ -295,6 +321,16 @@ func (r *Result) Uint32() (uint32, error) {
 	case uint32:
 		return v, nil
 	case uint64:
+		return uint32(v), nil
+	case float32:
+		if v < 0 {
+			return 0, ErrorInvalidNumber
+		}
+		return uint32(v), nil
+	case float64:
+		if v < 0 {
+			return 0, ErrorInvalidNumber
+		}
 		return uint32(v), nil
 	case bool:
 		if v {
@@ -319,24 +355,24 @@ func (r *Result) Uint64() (uint64, error) {
 	switch v := r.object.(type) {
 	case int:
 		if v < 0 {
-			return uint64(v), nil
+			return 0, ErrorInvalidNumber
 		}
-		return 0, ErrorInvalidNumber
+		return uint64(v), nil
 	case int8:
 		if v < 0 {
-			return uint64(v), nil
+			return 0, ErrorInvalidNumber
 		}
-		return 0, ErrorInvalidNumber
+		return uint64(v), nil
 	case int16:
 		if v < 0 {
-			return uint64(v), nil
+			return 0, ErrorInvalidNumber
 		}
-		return 0, ErrorInvalidNumber
+		return uint64(v), nil
 	case int32:
 		if v < 0 {
 			return uint64(v), nil
 		}
-		return 0, ErrorInvalidNumber
+		return uint64(v), nil
 	case int64:
 		if v < 0 {
 			return uint64(v), nil
@@ -352,6 +388,16 @@ func (r *Result) Uint64() (uint64, error) {
 		return uint64(v), nil
 	case uint64:
 		return v, nil
+	case float32:
+		if v < 0 {
+			return 0, ErrorInvalidNumber
+		}
+		return uint64(v), nil
+	case float64:
+		if v < 0 {
+			return 0, ErrorInvalidNumber
+		}
+		return uint64(v), nil
 	case bool:
 		if v {
 			return 1, nil
@@ -392,6 +438,10 @@ func (r *Result) Int8() (int8, error) {
 	case uint32:
 		return int8(v), nil
 	case uint64:
+		return int8(v), nil
+	case float32:
+		return int8(v), nil
+	case float64:
 		return int8(v), nil
 	case bool:
 		if v {
@@ -434,6 +484,10 @@ func (r *Result) Int16() (int16, error) {
 		return int16(v), nil
 	case uint64:
 		return int16(v), nil
+	case float32:
+		return int16(v), nil
+	case float64:
+		return int16(v), nil
 	case bool:
 		if v {
 			return 1, nil
@@ -474,6 +528,10 @@ func (r *Result) Int32() (int32, error) {
 	case uint32:
 		return int32(v), nil
 	case uint64:
+		return int32(v), nil
+	case float32:
+		return int32(v), nil
+	case float64:
 		return int32(v), nil
 	case bool:
 		if v {
@@ -516,6 +574,10 @@ func (r *Result) Int64() (int64, error) {
 		return int64(v), nil
 	case uint64:
 		return int64(v), nil
+	case float32:
+		return int64(v), nil
+	case float64:
+		return int64(v), nil
 	case bool:
 		if v {
 			return 1, nil
@@ -556,6 +618,10 @@ func (r *Result) Int() (int, error) {
 	case uint32:
 		return int(v), nil
 	case uint64:
+		return int(v), nil
+	case float32:
+		return int(v), nil
+	case float64:
 		return int(v), nil
 	case bool:
 		if v {
@@ -598,6 +664,10 @@ func (r *Result) Float32() (float32, error) {
 		return float32(v), nil
 	case uint64:
 		return float32(v), nil
+	case float32:
+		return v, nil
+	case float64:
+		return float32(v), nil
 	case bool:
 		if v {
 			return 1, nil
@@ -639,6 +709,10 @@ func (r *Result) Float64() (float64, error) {
 		return float64(v), nil
 	case uint64:
 		return float64(v), nil
+	case float32:
+		return float64(v), nil
+	case float64:
+		return v, nil
 	case bool:
 		if v {
 			return 1, nil
@@ -678,6 +752,10 @@ func (r *Result) String() (string, error) {
 		return strconv.FormatUint(uint64(v), 10), nil
 	case uint64:
 		return strconv.FormatUint(v, 10), nil
+	case float32:
+		return strconv.FormatFloat(float64(v), 'G', -1, 32), nil
+	case float64:
+		return strconv.FormatFloat(v, 'G', -1, 64), nil
 	case bool:
 		if v {
 			return "true", nil
