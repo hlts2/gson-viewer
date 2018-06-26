@@ -8,10 +8,22 @@
   version = "v0.2.1"
 
 [[projects]]
+  name = "github.com/fatih/color"
+  packages = ["."]
+  revision = "5b77d2a35fb0ede96d138fc9a99f5c9b6aef11b4"
+  version = "v1.7.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/hlts2/gson"
   packages = ["."]
   revision = "2412d3b0c6652b31ee697524efda899e0dd68b24"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/hokaccha/go-prettyjson"
+  packages = ["."]
+  revision = "d229c224a219dcf41e9d2af4684b9782f33f5eb7"
 
 [[projects]]
   name = "github.com/inconshreveable/mousetrap"
@@ -70,6 +82,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "83fae1feb330da629e787b1d9daf14d46e43918a1aa3845f42bb93fe51094ec8"
+  inputs-digest = "a2034b490039784e60672c6d8a083b67b255ffa7887acc68cd6667451d5a59d6"
   solver-name = "gps-cdcl"
   solver-version = 1

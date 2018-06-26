@@ -1,13 +1,15 @@
 package cmd
 
 import (
-	"bytes"
 	"fmt"
 	"os"
+	"unsafe"
 
 	prompt "github.com/c-bata/go-prompt"
 	"github.com/hlts2/gson"
 	"github.com/hlts2/gson-viewer/pkg/gson-viewer"
+	"github.com/hokaccha/go-prettyjson"
+	"github.com/mattn/go-colorable"
 )
 
 // REPL is REPL interface
@@ -45,9 +47,8 @@ func (r *repl) executer(in string) {
 	result, err := r.Gson.GetByPath(normalizedIn)
 	if err != nil {
 		if in == "show" {
-			var buf bytes.Buffer
-			r.Gson.Indent(&buf, "", "  ")
-			fmt.Println(buf.String())
+			d, _ := prettyjson.Marshal(r.Gson.Interface())
+			fmt.Fprintln(colorable.NewColorableStdout(), *(*string)(unsafe.Pointer(&d)))
 			return
 		}
 
@@ -55,10 +56,8 @@ func (r *repl) executer(in string) {
 		return
 	}
 
-	var buf bytes.Buffer
-	result.Indent(&buf, "", "  ")
-
-	fmt.Fprintln(os.Stdout, buf.String())
+	d, _ := prettyjson.Marshal(result.Interface())
+	fmt.Fprintln(colorable.NewColorableStdout(), *(*string)(unsafe.Pointer(&d)))
 }
 
 var welcomText = `
