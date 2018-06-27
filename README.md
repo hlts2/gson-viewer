@@ -11,7 +11,7 @@ go get github.com/hlts2/gson-viewer
 
 An interactive command-line JSON viewer demo.
 
-![gson-viewer](./demo/demo1.gif)
+![gson-viewer](./demo/demo.gif)
 
 ## Example
 
