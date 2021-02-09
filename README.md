@@ -15,11 +15,23 @@ An interactive command-line JSON viewer demo.
 
 ## Example
 
-To launch an interactive command-line JSON viewer.
+### File Mode
+
+To launch an interactive command-line JSON viewer from file.
 
 ```shell
 
 gson-viewer -s {json file}
+
+```
+
+### Pipe Mode
+
+To launch an interactive command-line JSON viewer from pipe.
+
+```shell
+
+cat test.json | gson-viewer
 
 ```
 
