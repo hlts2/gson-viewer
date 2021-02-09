@@ -23,7 +23,7 @@ func TestLoad(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		gson, err := LoadJSON(test.path)
+		gson, err := Load(test.path)
 
 		isError := !(err == nil)
 

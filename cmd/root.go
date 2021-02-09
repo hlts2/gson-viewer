@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hlts2/gson-viewer/pkg/gson-viewer"
+	"github.com/hlts2/gson"
+	gsonviewer "github.com/hlts2/gson-viewer/pkg/gson-viewer"
 	"github.com/spf13/cobra"
 )
 
@@ -20,20 +21,38 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-var jsonFileN string
+var path string
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&jsonFileN, "set", "s", "", "set json file")
+	rootCmd.PersistentFlags().StringVarP(
+		&path, "set", "s", "", "set json file",
+	)
 }
 
-func gsonViewer(cmd *cobra.Command, args []string) error {
-	if len(jsonFileN) < 1 {
-		return errors.New("json file dose not set")
-	}
-
-	gson, err := gsonviewer.LoadJSON(jsonFileN)
+func gsonViewer(cmd *cobra.Command, args []string) (err error) {
+	finfo, err := os.Stdin.Stat()
 	if err != nil {
 		return err
+	}
+
+	var gson *gson.Gson
+
+	// read from standard input
+	if finfo.Mode()&os.ModeCharDevice == 0 {
+		gson, err = gsonviewer.LoadWithReader(os.Stdin)
+		if err != nil {
+			return err
+		}
+	} else {
+		if len(path) < 1 {
+			return errors.New("json file dose not set")
+		}
+
+		gson, err = gsonviewer.Load(path)
+		if err != nil {
+			return err
+		}
+
 	}
 
 	return NewREPL(gson).Run()
