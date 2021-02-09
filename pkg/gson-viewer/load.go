@@ -13,5 +13,5 @@ func LoadJSON(path string) (*gson.Gson, error) {
 		return nil, err
 	}
 
-	return gson.NewGsonFromReader(file)
+	return gson.CreateWithReader(file)
 }

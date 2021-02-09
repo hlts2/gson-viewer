@@ -7,7 +7,7 @@ import (
 
 	prompt "github.com/c-bata/go-prompt"
 	"github.com/hlts2/gson"
-	"github.com/hlts2/gson-viewer/pkg/gson-viewer"
+	gsonviewer "github.com/hlts2/gson-viewer/pkg/gson-viewer"
 	"github.com/hokaccha/go-prettyjson"
 	"github.com/mattn/go-colorable"
 )
@@ -47,7 +47,7 @@ func (r *repl) executer(in string) {
 	result, err := r.Gson.GetByPath(normalizedIn)
 	if err != nil {
 		if in == "show" {
-			d, _ := prettyjson.Marshal(r.Gson.Interface())
+			d, _ := prettyjson.Marshal(r.Gson.Object())
 			fmt.Fprintln(colorable.NewColorableStdout(), *(*string)(unsafe.Pointer(&d)))
 			return
 		}
